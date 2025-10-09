@@ -9,10 +9,10 @@ import com.felix.common.util.ThreadUtils;
 public class StackAreaDemo {
 
     public static void main(String[] args) {
-        Print.cfc("线程ID：" + Thread.currentThread().threadId());
-        Print.cfc("线程名：" + Thread.currentThread().getName());
-        Print.cfc("线程状态：" + Thread.currentThread().getState());
-        Print.cfc("线程优先级：" + Thread.currentThread().getPriority());
+        Print.cfo("线程ID：" + Thread.currentThread().threadId());
+        Print.cfo("线程名：" + Thread.currentThread().getName());
+        Print.cfo("线程状态：" + Thread.currentThread().getState());
+        Print.cfo("线程优先级：" + Thread.currentThread().getPriority());
         int a = 1, b = 1;
         int c = a / b;
         anotherFun();

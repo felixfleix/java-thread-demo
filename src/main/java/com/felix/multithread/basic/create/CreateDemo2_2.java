@@ -17,13 +17,13 @@ public class CreateDemo2_2 {
         for (int i = 0; i < 2; i++) {
             thread = new Thread(() -> {
                 for (int j = 0; j < MAX_TURN; j++) {
-                    Print.cfc(ThreadUtils.getCurThreadName() + "运行第" + (j + 1) + "轮。");
+                    Print.cfo(ThreadUtils.getCurThreadName() + "运行第" + (j + 1) + "轮。");
                 }
-                Print.cfc(ThreadUtils.getCurThreadName() + "运行结束。");
+                Print.cfo(ThreadUtils.getCurThreadName() + "运行结束。");
             }, "DemoThread-" + THREAD_NO++);
             thread.start();
         }
-        Print.cfc(ThreadUtils.getCurThreadName() + "运行结束。");
+        Print.cfo(ThreadUtils.getCurThreadName() + "运行结束。");
     }
 
 }

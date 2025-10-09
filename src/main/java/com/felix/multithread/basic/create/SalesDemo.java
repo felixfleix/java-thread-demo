@@ -21,11 +21,11 @@ public class SalesDemo {
         public void run() {
             for (int i = 0; i < MAX_ACCOUNT; i++) {
                 if (goodsAccount > 0) {
-                    Print.cfc(getName() + "卖出了一件，还剩" + (--goodsAccount) + "件。");
+                    Print.cfo(getName() + "卖出了一件，还剩" + (--goodsAccount) + "件。");
                     ThreadUtils.sleepMilliSeconds(10);
                 }
             }
-            Print.cfc(getName() + "卖完了。");
+            Print.cfo(getName() + "卖完了。");
         }
     }
 
@@ -35,11 +35,11 @@ public class SalesDemo {
         public void run() {
             for (int i = 0; i < MAX_ACCOUNT; i++) {
                 if (goodsAccount.get() > 0) {
-                    Print.cfc(ThreadUtils.getCurThreadName() + "卖出了一件，还剩" + (goodsAccount.decrementAndGet()) + "件。");
+                    Print.cfo(ThreadUtils.getCurThreadName() + "卖出了一件，还剩" + (goodsAccount.decrementAndGet()) + "件。");
                     ThreadUtils.sleepMilliSeconds(10);
                 }
             }
-            Print.cfc(ThreadUtils.getCurThreadName() + "卖完了。");
+            Print.cfo(ThreadUtils.getCurThreadName() + "卖完了。");
         }
     }
 
@@ -59,7 +59,7 @@ public class SalesDemo {
             thread.start();
         }
 
-        Print.cfc(ThreadUtils.getCurThreadName() + "运行结束。");
+        Print.cfo(ThreadUtils.getCurThreadName() + "运行结束。");
     }
 
 }

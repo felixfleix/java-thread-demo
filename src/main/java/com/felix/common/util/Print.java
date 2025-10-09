@@ -10,7 +10,7 @@ public class Print {
      *
      * @param s 当前线程信息
      */
-    public synchronized static void cfc(Object s) {
+    public synchronized static void cfo(Object s) {
         System.out.println("[" + ReflectionUtils.getNickCallClassMethod() + "]: " + s);
     }
 
@@ -19,7 +19,7 @@ public class Print {
      *
      * @param s 待输出的字符串
      */
-    public synchronized static void tcfc(Object s) {
+    public synchronized static void tcfo(Object s) {
         String cft = "[" + ThreadUtils.getCurThreadName() + "|" + ReflectionUtils.getNickCallClassMethod() + "]";
         System.out.println(cft + ": " + s);
     }
@@ -30,7 +30,7 @@ public class Print {
      * @param s 提示信息
      */
     public static void hint(Object s) {
-        tcfc("/-- " + s + " --/");
+        tcfo("/-- " + s + " --/");
     }
 
 }

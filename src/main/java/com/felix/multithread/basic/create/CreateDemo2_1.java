@@ -20,13 +20,13 @@ public class CreateDemo2_1 {
                 @Override
                 public void run() {
                     for (int i = 0; i < MAX_TURN; i++) {
-                        Print.cfc(ThreadUtils.getCurThreadName() + "运行第" + (i + 1) + "轮。");
+                        Print.cfo(ThreadUtils.getCurThreadName() + "运行第" + (i + 1) + "轮。");
                     }
                 }
             }, "DemoThread-" + THREAD_NO++);
             thread.start();
         }
-        Print.cfc(ThreadUtils.getCurThreadName() + "运行结束。");
+        Print.cfo(ThreadUtils.getCurThreadName() + "运行结束。");
     }
 
 }
