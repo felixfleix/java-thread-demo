@@ -14,4 +14,23 @@ public class Print {
         System.out.println("[" + ReflectionUtil.getNickCallClassMethod() + "]: " + s);
     }
 
+    /**
+     * 打印当前线程的名称与当前线程执行的类名与方法名
+     *
+     * @param s 待输出的字符串
+     */
+    public synchronized static void tcfc(Object s) {
+        String cft = "[" + Thread.currentThread().getName() + "|" + ReflectionUtil.getNickCallClassMethod() + "]";
+        System.out.println(cft + ": " + s);
+    }
+
+    /**
+     * 打印提示信息
+     *
+     * @param s 提示信息
+     */
+    public static void hint(Object s) {
+        tcfc("/-- " + s + " --/");
+    }
+
 }
