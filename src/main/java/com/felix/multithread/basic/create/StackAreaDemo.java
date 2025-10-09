@@ -1,13 +1,14 @@
 package com.felix.multithread.basic.create;
 
 import com.felix.common.util.Print;
+import com.felix.common.util.ThreadUtils;
 
 /**
  * @author felix
  */
 public class StackAreaDemo {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         Print.cfc("线程ID：" + Thread.currentThread().threadId());
         Print.cfc("线程名：" + Thread.currentThread().getName());
         Print.cfc("线程状态：" + Thread.currentThread().getState());
@@ -15,7 +16,7 @@ public class StackAreaDemo {
         int a = 1, b = 1;
         int c = a / b;
         anotherFun();
-        Thread.sleep(10000000);
+        ThreadUtils.sleepMilliSeconds(100000);
     }
 
 

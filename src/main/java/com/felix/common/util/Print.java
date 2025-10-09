@@ -11,7 +11,7 @@ public class Print {
      * @param s 当前线程信息
      */
     public synchronized static void cfc(Object s) {
-        System.out.println("[" + ReflectionUtil.getNickCallClassMethod() + "]: " + s);
+        System.out.println("[" + ReflectionUtils.getNickCallClassMethod() + "]: " + s);
     }
 
     /**
@@ -20,7 +20,7 @@ public class Print {
      * @param s 待输出的字符串
      */
     public synchronized static void tcfc(Object s) {
-        String cft = "[" + Thread.currentThread().getName() + "|" + ReflectionUtil.getNickCallClassMethod() + "]";
+        String cft = "[" + ThreadUtils.getCurThreadName() + "|" + ReflectionUtils.getNickCallClassMethod() + "]";
         System.out.println(cft + ": " + s);
     }
 

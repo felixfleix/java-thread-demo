@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ReflectionUtilTest {
+class ReflectionUtilsTest {
     @Test
     void getNickCallClassMethod() {
-        String nickCallClassMethod = ReflectionUtil.getNickCallClassMethod();
+        String nickCallClassMethod = ReflectionUtils.getNickCallClassMethod();
         assertEquals("DirectMethodHandleAccessor.invoke", nickCallClassMethod);
     }
 

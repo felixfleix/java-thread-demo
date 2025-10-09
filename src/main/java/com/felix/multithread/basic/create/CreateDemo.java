@@ -1,6 +1,7 @@
 package com.felix.multithread.basic.create;
 
 import com.felix.common.util.Print;
+import com.felix.common.util.ThreadUtils;
 
 /**
  * @author felix
@@ -9,10 +10,6 @@ public class CreateDemo {
 
     private static final int MAX_TURN = 5;
     private static int THREAD_NO = 1;
-    private static String getCurThreadName() {
-        return Thread.currentThread().getName();
-    }
-
     static class DemoThread extends Thread {
 
         public DemoThread() {
@@ -35,7 +32,7 @@ public class CreateDemo {
             thread = new DemoThread();
             thread.start();
         }
-        Print.cfc(getCurThreadName() + "运行结束。");
+        Print.cfc(ThreadUtils.getCurThreadName() + "运行结束。");
     }
 
 }

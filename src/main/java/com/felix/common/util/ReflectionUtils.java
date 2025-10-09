@@ -3,7 +3,7 @@ package com.felix.common.util;
 /**
  * @author felix
  */
-public class ReflectionUtil {
+public class ReflectionUtils {
 
     /**
      * 获取调用者的类名和方法名
