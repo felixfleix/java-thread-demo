@@ -1,9 +1,21 @@
 package com.felix.common.util;
 
 /**
+ * t-thread,c-content,o-output
+ *
  * @author felix
  */
 public class Print {
+
+    /**
+     * 打印当前线程的名称与待输出的字符串
+     *
+     * @param s 待输出的字符串
+     */
+    public synchronized static void tco(Object s) {
+        String cft = "[" + Thread.currentThread().getName() + "]";
+        System.out.println(cft + ": " + s);
+    }
 
     /**
      * 打印当前线程执政执行的类名与方法名
