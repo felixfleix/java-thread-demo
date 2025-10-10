@@ -25,4 +25,13 @@ public class ThreadUtils {
         LockSupport.parkNanos(milliSeconds * 1000L * 1000L);
     }
 
+    /**
+     * 使当前线程休眠指定的秒数
+     *
+     * @param seconds 线程休眠的秒数
+     */
+    public static void sleepSeconds(long seconds) {
+        LockSupport.parkNanos(seconds * 1000L * 1000L * 1000L);
+    }
+
 }
