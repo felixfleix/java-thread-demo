@@ -5,7 +5,6 @@ import com.felix.common.util.Print;
 import com.felix.common.util.RandomUtils;
 import com.felix.common.util.ThreadUtils;
 
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
