@@ -1,4 +1,4 @@
-package com.felix.multithread.basic.create;
+package com.felix.threadpool.basic.create;
 
 import com.felix.common.util.Print;
 import com.felix.common.util.ThreadUtils;
@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * @author felix
  */
-public class CreateByCachedThreadDemo {
+public class CreateByFixedThreadDemo {
 
     private static final int SLEEP_GAP = 3000;
 
@@ -33,7 +33,7 @@ public class CreateByCachedThreadDemo {
     }
 
     public static void main(String[] args) {
-        ExecutorService executorService = Executors.newCachedThreadPool();
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
         for (int i = 0; i < 5; i++) {
             executorService.execute(new TargetTask());
             executorService.submit(new TargetTask());

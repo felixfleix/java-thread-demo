@@ -1,4 +1,4 @@
-package com.felix.multithread.basic.create;
+package com.felix.threadpool.basic.create;
 
 import com.felix.common.util.Print;
 import com.felix.common.util.ThreadUtils;

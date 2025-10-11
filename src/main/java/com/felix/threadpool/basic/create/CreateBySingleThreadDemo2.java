@@ -1,4 +1,4 @@
-package com.felix.multithread.basic.create;
+package com.felix.threadpool.basic.create;
 
 import com.felix.common.util.Print;
 import com.felix.common.util.ThreadUtils;
@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * @author felix
  */
-public class CreateBySingleThreadDemo1 {
+public class CreateBySingleThreadDemo2 {
 
     private static final int SLEEP_GAP = 1000;
 
@@ -30,7 +30,12 @@ public class CreateBySingleThreadDemo1 {
         @Override
         public void run() {
             Print.tco("任务：" + threadName + "开始执行。");
-            ThreadUtils.sleepMilliSeconds(SLEEP_GAP);
+            try {
+                Thread.sleep(50000);
+            } catch (InterruptedException e) {
+                Print.tco("任务：" + threadName + "被中断。");
+                return;
+            }
             Print.tco("任务：" + threadName + "执行完毕。");
         }
     }
@@ -38,10 +43,18 @@ public class CreateBySingleThreadDemo1 {
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
 
-        for (int i = 0; i < 5; i++) {
-            executorService.execute(new TargetTask());
-            executorService.submit(new TargetTask());
-        }
+        TargetTask task = new TargetTask();
+
+        Future<?> submit = executorService.submit(task);
+
+        new Thread(() -> {
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                Print.tco("线程：" + ThreadUtils.getCurThreadName() + "被中断。");
+            }
+            submit.cancel(true);
+        }).start();
 
         // close()方法会等待所有任务执行完毕，然后关闭线程池
         executorService.close();
