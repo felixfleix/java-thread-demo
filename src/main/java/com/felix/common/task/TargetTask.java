@@ -38,7 +38,7 @@ public class TargetTask implements Runnable {
             e.printStackTrace();
             return;
         }
-        Print.tco("任务：" + threadName + " 执行完成");
+        Print.tco(threadName + " 运行结束");
     }
 
     public String getThreadName() {
