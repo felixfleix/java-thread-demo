@@ -25,7 +25,7 @@ public class TargetTask implements Runnable {
     private final String threadName;
 
     public TargetTask() {
-        threadName = "TargetTask-" + THREAD_NO.getAndIncrement();
+        threadName = "TargetTask-" + THREAD_NO.incrementAndGet();
     }
 
     @Override
