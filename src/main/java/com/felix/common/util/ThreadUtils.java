@@ -1,13 +1,66 @@
 package com.felix.common.util;
 
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.LockSupport;
 
 /**
  * @author felix
  */
 public class ThreadUtils {
+
+    /**
+     * 自定义线程工厂类，用于创建线程池中的线程
+     */
+    static class CustomThreadFactory implements ThreadFactory {
+
+        /**
+         * 线程池编号
+         */
+        private static final AtomicInteger THREAD_POOL_NUM = new AtomicInteger(0);
+        /**
+         * 线程组
+         */
+        private final ThreadGroup threadGroup;
+
+        /**
+         * 线程编号
+         */
+        private static final AtomicInteger THREAD_NUM = new AtomicInteger(0);
+
+        /**
+         * 线程标签
+         */
+        private final String threadTag;
+
+
+        public CustomThreadFactory(String threadTag) {
+            // 创建线程组
+            SecurityManager s = System.getSecurityManager();
+            this.threadGroup = s != null ? s.getThreadGroup() : Thread.currentThread().getThreadGroup();
+            // 创建线程标签
+            this.threadTag = "appPool-" + THREAD_POOL_NUM.incrementAndGet() + "-" + threadTag + "-";
+        }
+
+        @Override
+        public Thread newThread(Runnable r) {
+            Thread thread = new Thread(this.threadGroup, r
+                    , this.threadTag + THREAD_NUM.incrementAndGet(), 0);
+            // 设置线程为非守护线程
+            if (thread.isDaemon()) {
+                thread.setDaemon(false);
+            }
+
+            // 设置线程优先级为普通优先级
+            if (thread.getPriority() != Thread.NORM_PRIORITY) {
+                thread.setPriority(Thread.NORM_PRIORITY);
+            }
+
+            return thread;
+        }
+    }
 
     /**
      * 获取当前线程的名称
