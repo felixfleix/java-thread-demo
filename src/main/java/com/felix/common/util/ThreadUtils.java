@@ -14,7 +14,7 @@ public class ThreadUtils {
     /**
      * 自定义线程工厂类，用于创建线程池中的线程
      */
-    static class CustomThreadFactory implements ThreadFactory {
+    public static class CustomThreadFactory implements ThreadFactory {
 
         /**
          * 线程池编号
