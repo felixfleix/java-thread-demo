@@ -1,8 +1,6 @@
 package com.felix.common.util;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.LockSupport;
 
@@ -10,6 +8,57 @@ import java.util.concurrent.locks.LockSupport;
  * @author felix
  */
 public class ThreadUtils {
+
+    /**
+     * CPU核心数
+     */
+    private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
+
+    /**
+     * IO处理线程数
+     */
+    private static final int IO_MAX = Math.max(2, CPU_COUNT * 2);
+
+    /**
+     * 空闲保活时限，单位秒
+     */
+    private static final int KEEP_ALIVE_SECONDS = 30;
+
+    /**
+     * 有界队列大小
+     */
+    private static final int QUEUE_SIZE = 128;
+
+    // 懒汉式单例创建线程池，用于IO密集型任务
+    private static class IoIntenseTargetThreadPoolLazyHolder {
+
+        /**
+         * 线程池，用于IO密集型任务。coreThreadCount与maximumThreadCount设置一致，可以严格控制线程池中
+         * 的线程数
+         */
+        private static final ThreadPoolExecutor EXECUTOR = new ThreadPoolExecutor(
+                IO_MAX,
+                IO_MAX,
+                KEEP_ALIVE_SECONDS,
+                TimeUnit.SECONDS,
+                new LinkedBlockingDeque<>(QUEUE_SIZE)
+        );
+
+        static {
+            // 设置为true时，keepAliveTime也将作用于core threads
+            EXECUTOR.allowCoreThreadTimeOut(true);
+            // JVM关闭时的钩子函数
+            Runtime.getRuntime().addShutdownHook(new ShutdownHookThread("IO密集型任务线程池", new Callable<Void>() {
+                @Override
+                public Void call() throws Exception {
+                    // 优雅地关闭线程池
+                    shutdownThreadPoolGracefully(EXECUTOR);
+                    return null;
+                }
+            }));
+        }
+
+    }
 
     /**
      * 自定义线程工厂类，用于创建线程池中的线程
@@ -46,8 +95,7 @@ public class ThreadUtils {
 
         @Override
         public Thread newThread(Runnable r) {
-            Thread thread = new Thread(this.threadGroup, r
-                    , this.threadTag + THREAD_NUM.incrementAndGet(), 0);
+            Thread thread = new Thread(this.threadGroup, r, this.threadTag + THREAD_NUM.incrementAndGet(), 0);
             // 设置线程为非守护线程
             if (thread.isDaemon()) {
                 thread.setDaemon(false);
